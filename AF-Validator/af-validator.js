@@ -62,8 +62,18 @@
     // Returns null when the name does not start with "radio ".
     // ======================================================================
     function _radioAlias(nameLC) {
-        if (!nameLC || nameLC.indexOf("radio ") !== 0) return null;
-        return "r." + nameLC.slice(6);
+      if (!nameLC || nameLC.indexOf("radio ") !== 0) return null;
+      return "r." + nameLC.slice(6);
+    }
+
+    // Converts "<prefix> radio <suffix>" → "<prefix> r.<suffix>"
+    // e.g. "rne radio nacional" → "rne r.nacional"
+    // Returns null if the pattern is not found.
+    function _networkAlias(nameLC) {
+      if (!nameLC) return null;
+      var idx = nameLC.indexOf(" radio ");
+      if (idx === -1) return null;
+      return nameLC.slice(0, idx) + " r." + nameLC.slice(idx + 7);
     }
 
     function _checkUpdate() {
@@ -302,32 +312,41 @@
     // Validate one frequency against a station name (case-insensitive).
     // Also tries the "Radio X" → "R.X" alias.
     // ======================================================================
-    function _check(mhz, stationLC) {
-        if (!_lookup || !stationLC) return "unknown";
-        var list = _lookup[_r1(mhz)];
-        if (!list || !list.length) {
-            _dbg("[AF-Validator] check", mhz.toFixed(1), "MHz – no DB entry for this frequency → unknown");
-            return "unknown";
-        }
-
-        // Primary match
-        if (list.indexOf(stationLC) !== -1) {
-            _dbg("[AF-Validator] check", mhz.toFixed(1), "MHz – PRIMARY MATCH for \"" + stationLC + "\" → ok");
-            return "ok";
-        }
-
-        // Alias match: "radio x" → "r.x"
-        var alias = _radioAlias(stationLC);
-        if (alias && list.indexOf(alias) !== -1) {
-            _dbg("[AF-Validator] check", mhz.toFixed(1), "MHz – ALIAS MATCH \"" + stationLC + "\" → \"" + alias + "\" → ok");
-            return "ok";
-        }
-
-        _dbg("[AF-Validator] check", mhz.toFixed(1), "MHz – NO MATCH for \"" + stationLC + "\"" +
-            (alias ? " (also tried alias \"" + alias + "\")" : "") +
-            " | DB entries: [" + list.join(", ") + "] → fail");
-        return "fail";
+function _check(mhz, stationLC) {
+    if (!_lookup || !stationLC) return "unknown";
+    var list = _lookup[_r1(mhz)];
+    if (!list || !list.length) {
+        _dbg("[AF-Validator] check", mhz.toFixed(1), "MHz – no DB entry for this frequency → unknown");
+        return "unknown";
     }
+
+    // Primary match
+    if (list.indexOf(stationLC) !== -1) {
+        _dbg("[AF-Validator] check", mhz.toFixed(1), "MHz – PRIMARY MATCH for \"" + stationLC + "\" → ok");
+        return "ok";
+    }
+
+    // Alias match 1: "radio x" → "r.x"
+    var alias = _radioAlias(stationLC);
+    if (alias && list.indexOf(alias) !== -1) {
+        _dbg("[AF-Validator] check", mhz.toFixed(1), "MHz – ALIAS MATCH \"" + stationLC + "\" → \"" + alias + "\" → ok");
+        return "ok";
+    }
+
+    // Alias match 2: "<prefix> radio <suffix>" → "<prefix> r.<suffix>"
+    // e.g. "rne radio nacional" → "rne r.nacional"
+    var netAlias = _networkAlias(stationLC);
+    if (netAlias && list.indexOf(netAlias) !== -1) {
+        _dbg("[AF-Validator] check", mhz.toFixed(1), "MHz – NETWORK ALIAS MATCH \"" + stationLC + "\" → \"" + netAlias + "\" → ok");
+        return "ok";
+    }
+
+    _dbg("[AF-Validator] check", mhz.toFixed(1), "MHz – NO MATCH for \"" + stationLC + "\"" +
+        (alias    ? " (also tried alias \""    + alias    + "\")" : "") +
+        (netAlias ? " (also tried netAlias \"" + netAlias + "\")" : "") +
+        " | DB entries: [" + list.join(", ") + "] → fail");
+    return "fail";
+}
 
     // ======================================================================
     // CSS
