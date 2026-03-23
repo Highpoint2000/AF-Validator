@@ -1,7 +1,8 @@
 # AF Validator
 Validates the determined station name for correctness using alternative frequencies in the database.
 
-<img width="1697" height="856" alt="image" src="https://github.com/user-attachments/assets/3b229f33-3cf7-4314-8972-bf816a6beee4" />
+<img width="1224" height="849" alt="grafik" src="https://github.com/user-attachments/assets/936e4701-af1a-42b5-bdec-0706c87451d2" />
+
 
 ## Version 1.0
 
