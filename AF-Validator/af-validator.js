@@ -6,9 +6,6 @@
 //                                                           //
 //  https://github.com/Highpoint2000/AF-Validator            //
 //                                                           //
-//  Primary:   DTLN (2 models) via ONNX Runtime Web          //
-//  Secondary: RNNoise WASM by Shiguredo (MIT)               //
-//  VAD:       Silero VAD v4 (ONNX) – RNNoise only           //
 //                                                           //
 ///////////////////////////////////////////////////////////////
 
@@ -18,7 +15,7 @@
     // ── Plugin metadata ────────────────────────────────────────────────────
     var pluginVersion     = "1.0";
     var pluginName        = "AF-Validator";
-    var pluginHomepageUrl = "https://github.com/highpointONLINE/AF-Validator/releases";
+    var pluginHomepageUrl = "https://github.com/highpoint2000/AF-Validator/releases";
     var pluginUpdateUrl   = "https://raw.githubusercontent.com/highpoint2000/AF-Validator/main/AF-Validator/af-validator.js";
     var CHECK_FOR_UPDATES = true;
     var DEBUG_LOG         = false;   // set true to enable verbose/repeating logs
@@ -69,9 +66,6 @@
         return "r." + nameLC.slice(6);
     }
 
-    // ======================================================================
-    // Update check  (mirrors ai-denoise.js pattern)
-    // ======================================================================
     function _checkUpdate() {
         fetch(pluginUpdateUrl + "?t=" + Date.now(), { cache: "no-store" })
             .then(function (r) { return r.ok ? r.text() : null; })
@@ -810,11 +804,6 @@
             container.textContent = "";
         }
 
-        var heading = document.createElement("strong");
-        heading.id          = "afval-setup-heading";
-        heading.textContent = pluginName + " v" + pluginVersion;
-        container.appendChild(heading);
-        // Update link is injected by _checkUpdate() into #plugin-settings when available
     }
 
     // ======================================================================
