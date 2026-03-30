@@ -4,11 +4,9 @@ Validates the determined station name for correctness using alternative frequenc
 <img width="1224" height="849" alt="grafik" src="https://github.com/user-attachments/assets/936e4701-af1a-42b5-bdec-0706c87451d2" />
 
 
-## Version 1.0
+## Version 1.0a
 
-- Automatic AF Validation – Every Alternative Frequency in the RDS AF list is checked against the FMDX transmitter database (maps.fmdx.org) and marked with a green ✓ or red ✗ badge
-- AF Score Ring – A colour-coded canvas ring (red → yellow → green) displays the overall match percentage for the current station's AF list at a glance
-- Persistent Local Cache – The transmitter database is stored in localStorage and silently refreshed once per day; toasts only appear on real network activity
+- Additional play button removed from mobile devices
 
 ## Installation notes:
 
@@ -34,3 +32,11 @@ If you have any questions, would like to report problems, or have suggestions fo
 
 <a href="https://www.buymeacoffee.com/Highpoint" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
+<details>
+<summary>History</summary>
+
+### Version 1.0
+
+- Automatic AF Validation – Every Alternative Frequency in the RDS AF list is checked against the FMDX transmitter database (maps.fmdx.org) and marked with a green ✓ or red ✗ badge
+- AF Score Ring – A colour-coded canvas ring (red → yellow → green) displays the overall match percentage for the current station's AF list at a glance
+- Persistent Local Cache – The transmitter database is stored in localStorage and silently refreshed once per day; toasts only appear on real network activity

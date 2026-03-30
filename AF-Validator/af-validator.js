@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////////
 //                                                           //
-//  AF VALIDATOR PLUGIN FOR FM-DX-WEBSERVER (V1.0)           //
+//  AF VALIDATOR PLUGIN FOR FM-DX-WEBSERVER (V1.0a)          //
 //                                                           //
-//  by Highpoint                last update: 2026-03-23      //
+//  by Highpoint                last update: 2026-03-30      //
 //                                                           //
 //  https://github.com/Highpoint2000/AF-Validator            //
 //                                                           //
@@ -13,7 +13,7 @@
     "use strict";
 
     // ── Plugin metadata ────────────────────────────────────────────────────
-    var pluginVersion     = "1.0";
+    var pluginVersion     = "1.0a";
     var pluginName        = "AF-Validator";
     var pluginHomepageUrl = "https://github.com/highpoint2000/AF-Validator/releases";
     var pluginUpdateUrl   = "https://raw.githubusercontent.com/highpoint2000/AF-Validator/main/AF-Validator/af-validator.js";
@@ -357,8 +357,8 @@ function _check(mhz, stationLC) {
         s.id = "afval-css";
         s.textContent = [
             /* AF panel layout */
-            ".panel-10.no-bg{display:flex!important;flex-direction:column!important;}",
-            ".panel-10.no-bg>.panel-100{display:flex!important;flex-direction:column!important;flex:1;min-height:0;}",
+            ".panel-10.no-bg:has(#af-list){display:flex!important;flex-direction:column!important;}",
+            ".panel-10.no-bg:has(#af-list)>.panel-100{display:flex!important;flex-direction:column!important;flex:1;min-height:0;}",
 
             /* #af-list */
             "#af-list{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;}",
